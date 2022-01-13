@@ -29,6 +29,13 @@ function loadBreedOptions() {
       breeds = Object.keys(results.message);
       breeds.forEach((breed) => addBreed(breed));
     });
+
+    // add event listener for select box change
+
+    let select = document.getElementById("breed-dropdown")
+    select.addEventListener("change", (event) => {
+        filterBreeds(event.target.value)
+    })
 }
 
 function addBreed(breedName) {
@@ -38,3 +45,14 @@ function addBreed(breedName) {
   li.innerHTML = breedName;
   breedUl.appendChild(li);
 }
+
+function filterBreeds(letter) {
+    updateBreeds(breeds.filter((breed) => breed.startsWith(letter)))
+}
+
+function updateBreeds(breeds) {
+    let breedUl = document.getElementById("dog-breeds");
+    breedUl.innerHTML = "" //removes all the li's
+    breeds.forEach((breed) => addBreed(breed));
+}
+
